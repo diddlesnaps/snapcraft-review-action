@@ -1,16 +1,19 @@
+// -*- mode: javascript; js-indent-level: 2 -*-
+
 import * as core from '@actions/core'
-import {wait} from './wait'
+import {SnapReviewer} from './review'
 
 async function run(): Promise<void> {
   try {
-    const ms: string = core.getInput('milliseconds')
-    core.debug(`Waiting ${ms} milliseconds ...`)
+    const snapFile: string = core.getInput('snap')
+    const plugs: string = core.getInput('plugs')
+    const slots: string = core.getInput('slots')
+    const isClassic: boolean = core.getInput('isClassic') === 'true' ? true : false
+    core.info(`Reviewing snap "${snapFile}"...`)
 
-    core.debug(new Date().toTimeString())
-    await wait(parseInt(ms, 10))
-    core.debug(new Date().toTimeString())
-
-    core.setOutput('time', new Date().toTimeString())
+    const reviewer = new SnapReviewer(snapFile, plugs, slots, isClassic)
+    await reviewer.validate()
+    await reviewer.review()
   } catch (error) {
     core.setFailed(error.message)
   }

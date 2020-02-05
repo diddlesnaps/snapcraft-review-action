@@ -1,10 +1,10 @@
-name: 'Your name here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: 'Snapcraft Review Tools'
+description: 'Review your built Snap package using the same tools as the Snap Store'
+author: 'Daniel Llewellyn'
 inputs:
-  myInput:              # change this
-    description: 'input description here'
-    default: 'default value if applicable'
+  snap:
+    description: 'The snap file to upload to the store'
+    required: true
 runs:
   using: 'node12'
   main: 'dist/index.js'
