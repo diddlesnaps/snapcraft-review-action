@@ -5,6 +5,12 @@ inputs:
   snap:
     description: 'The snap file to upload to the store'
     required: true
+  plugs:
+    description: 'The file holding plugs declarations as json to override default snap permissions'
+  slots:
+    description: 'The file holding slots declarations as json to override default snap permissions'
+  isClassic:
+    description: 'Set this to true if you are reviewing a classic snap'
 runs:
   using: 'node12'
   main: 'dist/index.js'
