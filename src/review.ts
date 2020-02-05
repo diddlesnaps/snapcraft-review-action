@@ -12,14 +12,19 @@ export class SnapReviewer {
   plugsDeclFile: string
   slotsDeclFile: string
   allowClassic: boolean
-  
-  constructor(snapFile: string, plugsDeclFile: string, slotsDeclFile: string, allowClassic: boolean) {
+
+  constructor(
+    snapFile: string,
+    plugsDeclFile: string,
+    slotsDeclFile: string,
+    allowClassic: boolean
+  ) {
     this.snapFile = snapFile
     this.plugsDeclFile = plugsDeclFile
     this.slotsDeclFile = slotsDeclFile
     this.allowClassic = allowClassic
   }
-  
+
   async validate(): Promise<void> {
     try {
       await fs.promises.access(this.snapFile, fs.constants.R_OK)
@@ -31,17 +36,21 @@ export class SnapReviewer {
         await fs.promises.access(this.plugsDeclFile, fs.constants.R_OK)
       }
     } catch {
-      throw new Error(`cannot read plugs declaration file "${this.plugsDeclFile}"`)
+      throw new Error(
+        `cannot read plugs declaration file "${this.plugsDeclFile}"`
+      )
     }
     try {
       if (this.slotsDeclFile) {
         await fs.promises.access(this.slotsDeclFile, fs.constants.R_OK)
       }
     } catch {
-      throw new Error(`cannot read slots declaration file "${this.slotsDeclFile}"`)
+      throw new Error(
+        `cannot read slots declaration file "${this.slotsDeclFile}"`
+      )
     }
   }
-  
+
   async runReviewTools(): Promise<void> {
     const args: string[] = []
     if (this.plugsDeclFile) {
@@ -55,9 +64,8 @@ export class SnapReviewer {
     }
     args.push(this.snapFile)
     await exec.exec('review-tools.snap-review', args)
-    
   }
-  
+
   async review(): Promise<void> {
     await tools.ensureSnapd()
     await tools.ensureReviewTools()

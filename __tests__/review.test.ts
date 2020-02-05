@@ -13,19 +13,43 @@ test('SnapReviewer.validate validates inputs', async () => {
   const missingSnap = path.join(__dirname, 'no-such-snap.snap')
 
   // No error on valid inputs
-  let reviewer = new review.SnapReviewer(existingSnap, existingSnap, existingSnap, true)
+  let reviewer = new review.SnapReviewer(
+    existingSnap,
+    existingSnap,
+    existingSnap,
+    true
+  )
   await reviewer.validate()
 
   // Missing plugs declaration file
-  reviewer = new review.SnapReviewer(existingSnap, missingSnap, existingSnap, true)
-  await expect(reviewer.validate()).rejects.toThrow(`cannot read plugs declaration file "${missingSnap}"`)
+  reviewer = new review.SnapReviewer(
+    existingSnap,
+    missingSnap,
+    existingSnap,
+    true
+  )
+  await expect(reviewer.validate()).rejects.toThrow(
+    `cannot read plugs declaration file "${missingSnap}"`
+  )
 
   // Missing slots declaration file
-  reviewer = new review.SnapReviewer(existingSnap, existingSnap, missingSnap, true)
-  await expect(reviewer.validate()).rejects.toThrow(`cannot read slots declaration file "${missingSnap}"`)
+  reviewer = new review.SnapReviewer(
+    existingSnap,
+    existingSnap,
+    missingSnap,
+    true
+  )
+  await expect(reviewer.validate()).rejects.toThrow(
+    `cannot read slots declaration file "${missingSnap}"`
+  )
 
   // Missing snap
-  reviewer = new review.SnapReviewer(missingSnap, existingSnap, existingSnap, true)
+  reviewer = new review.SnapReviewer(
+    missingSnap,
+    existingSnap,
+    existingSnap,
+    true
+  )
   await expect(reviewer.validate()).rejects.toThrow(
     `cannot read snap file "${missingSnap}"`
   )
@@ -46,17 +70,14 @@ test('SnapReviewer.review reviews the snap', async () => {
     }
   )
 
-  const reviewer = new review.SnapReviewer(
-    'filename.snap',
-    '',
-    '',
-    false
-  )
+  const reviewer = new review.SnapReviewer('filename.snap', '', '', false)
   await reviewer.review()
 
   expect(ensureSnapd).toHaveBeenCalled()
   expect(ensureReviewTools).toHaveBeenCalled()
-  expect(execMock).toHaveBeenCalledWith('review-tools.snap-review', ['filename.snap'])
+  expect(execMock).toHaveBeenCalledWith('review-tools.snap-review', [
+    'filename.snap'
+  ])
 })
 
 test('SnapReviewer.review reviews the snap for classic', async () => {
@@ -74,17 +95,15 @@ test('SnapReviewer.review reviews the snap for classic', async () => {
     }
   )
 
-  const reviewer = new review.SnapReviewer(
-    'filename.snap',
-    '',
-    '',
-    true
-  )
+  const reviewer = new review.SnapReviewer('filename.snap', '', '', true)
   await reviewer.review()
 
   expect(ensureSnapd).toHaveBeenCalled()
   expect(ensureReviewTools).toHaveBeenCalled()
-  expect(execMock).toHaveBeenCalledWith('review-tools.snap-review', ['--allow-classic', 'filename.snap'])
+  expect(execMock).toHaveBeenCalledWith('review-tools.snap-review', [
+    '--allow-classic',
+    'filename.snap'
+  ])
 })
 
 test('SnapReviewer.review reviews the snap with plugs declaration', async () => {
@@ -112,7 +131,11 @@ test('SnapReviewer.review reviews the snap with plugs declaration', async () => 
 
   expect(ensureSnapd).toHaveBeenCalled()
   expect(ensureReviewTools).toHaveBeenCalled()
-  expect(execMock).toHaveBeenCalledWith('review-tools.snap-review', ['--plugs', 'plugs.json', 'filename.snap'])
+  expect(execMock).toHaveBeenCalledWith('review-tools.snap-review', [
+    '--plugs',
+    'plugs.json',
+    'filename.snap'
+  ])
 })
 
 test('SnapReviewer.review reviews the snap with slots declaration', async () => {
@@ -140,7 +163,11 @@ test('SnapReviewer.review reviews the snap with slots declaration', async () => 
 
   expect(ensureSnapd).toHaveBeenCalled()
   expect(ensureReviewTools).toHaveBeenCalled()
-  expect(execMock).toHaveBeenCalledWith('review-tools.snap-review', ['--slots', 'slots.json', 'filename.snap'])
+  expect(execMock).toHaveBeenCalledWith('review-tools.snap-review', [
+    '--slots',
+    'slots.json',
+    'filename.snap'
+  ])
 })
 
 test('SnapReviewer.review reviews the snap with plugs & slots declaration', async () => {
@@ -168,5 +195,11 @@ test('SnapReviewer.review reviews the snap with plugs & slots declaration', asyn
 
   expect(ensureSnapd).toHaveBeenCalled()
   expect(ensureReviewTools).toHaveBeenCalled()
-  expect(execMock).toHaveBeenCalledWith('review-tools.snap-review', ['--plugs', 'plugs.json', '--slots', 'slots.json', 'filename.snap'])
+  expect(execMock).toHaveBeenCalledWith('review-tools.snap-review', [
+    '--plugs',
+    'plugs.json',
+    '--slots',
+    'slots.json',
+    'filename.snap'
+  ])
 })

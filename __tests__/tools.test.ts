@@ -112,45 +112,45 @@ test('ensureSnapd fixes permissions on the root directory', async () => {
 })
 
 test('ensureReviewTools installs Review Tools if needed', async () => {
-    expect.assertions(2)
-  
-    const accessMock = jest.spyOn(fs.promises, 'access').mockImplementation(
-      async (filename: fs.PathLike, mode?: number | undefined): Promise<void> => {
-        throw new Error('not found')
-      }
-    )
-    const execMock = jest.spyOn(exec, 'exec').mockImplementation(
-      async (program: string, args?: string[]): Promise<number> => {
-        return 0
-      }
-    )
-  
-    await tools.ensureReviewTools()
-  
-    expect(accessMock).toHaveBeenCalled()
-    expect(execMock).toHaveBeenNthCalledWith(1, 'sudo', [
-      'snap',
-      'install',
-      'review-tools'
-    ])
-  })
-  
-  test('ensureReviewTools is a no-op if Review Tools is installed', async () => {
-    expect.assertions(2)
-  
-    const accessMock = jest.spyOn(fs.promises, 'access').mockImplementation(
-      async (filename: fs.PathLike, mode?: number | undefined): Promise<void> => {
-        return
-      }
-    )
-    const execMock = jest.spyOn(exec, 'exec').mockImplementation(
-      async (program: string, args?: string[]): Promise<number> => {
-        return 0
-      }
-    )
-  
-    await tools.ensureReviewTools()
-  
-    expect(accessMock).toHaveBeenCalled()
-    expect(execMock).not.toHaveBeenCalled()
-  })
+  expect.assertions(2)
+
+  const accessMock = jest.spyOn(fs.promises, 'access').mockImplementation(
+    async (filename: fs.PathLike, mode?: number | undefined): Promise<void> => {
+      throw new Error('not found')
+    }
+  )
+  const execMock = jest.spyOn(exec, 'exec').mockImplementation(
+    async (program: string, args?: string[]): Promise<number> => {
+      return 0
+    }
+  )
+
+  await tools.ensureReviewTools()
+
+  expect(accessMock).toHaveBeenCalled()
+  expect(execMock).toHaveBeenNthCalledWith(1, 'sudo', [
+    'snap',
+    'install',
+    'review-tools'
+  ])
+})
+
+test('ensureReviewTools is a no-op if Review Tools is installed', async () => {
+  expect.assertions(2)
+
+  const accessMock = jest.spyOn(fs.promises, 'access').mockImplementation(
+    async (filename: fs.PathLike, mode?: number | undefined): Promise<void> => {
+      return
+    }
+  )
+  const execMock = jest.spyOn(exec, 'exec').mockImplementation(
+    async (program: string, args?: string[]): Promise<number> => {
+      return 0
+    }
+  )
+
+  await tools.ensureReviewTools()
+
+  expect(accessMock).toHaveBeenCalled()
+  expect(execMock).not.toHaveBeenCalled()
+})

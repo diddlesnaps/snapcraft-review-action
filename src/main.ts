@@ -8,7 +8,8 @@ async function run(): Promise<void> {
     const snapFile: string = core.getInput('snap')
     const plugs: string = core.getInput('plugs')
     const slots: string = core.getInput('slots')
-    const isClassic: boolean = core.getInput('isClassic') === 'true' ? true : false
+    const isClassic: boolean =
+      core.getInput('isClassic') === 'true' ? true : false
     core.info(`Reviewing snap "${snapFile}"...`)
 
     const reviewer = new SnapReviewer(snapFile, plugs, slots, isClassic)
