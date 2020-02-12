@@ -1,8 +1,7 @@
 // -*- mode: javascript; js-indent-level: 2 -*-
 
-import * as fs from 'fs'
 import * as path from 'path'
-import * as exec from '@actions/exec'
+import * as spawn from 'node-pty'
 import * as review from '../src/review'
 import * as tools from '../src/tools'
 
@@ -64,9 +63,29 @@ test('SnapReviewer.review reviews the snap', async () => {
   const ensureReviewTools = jest
     .spyOn(tools, 'ensureReviewTools')
     .mockImplementation(async (): Promise<void> => {})
-  const execMock = jest.spyOn(exec, 'exec').mockImplementation(
-    async (program: string, args?: string[]): Promise<number> => {
-      return 0
+  const spawnMock = jest.spyOn(spawn, 'spawn').mockImplementation(
+    (
+      program: string,
+      args: string | string[],
+      options: spawn.IPtyForkOptions | spawn.IWindowsPtyForkOptions
+    ): spawn.IPty => {
+      return {
+        onData: (listener): any => {
+          listener('{}')
+        },
+        onExit: (listener): any => {
+          listener({exitCode: 0})
+        },
+        pid: 0,
+        cols: 0,
+        rows: 0,
+        process: '',
+        handleFlowControl: false,
+        on: () => {},
+        resize: () => {},
+        write: () => {},
+        kill: () => {}
+      }
     }
   )
 
@@ -75,9 +94,11 @@ test('SnapReviewer.review reviews the snap', async () => {
 
   expect(ensureSnapd).toHaveBeenCalled()
   expect(ensureReviewTools).toHaveBeenCalled()
-  expect(execMock).toHaveBeenCalledWith('review-tools.snap-review', [
-    'filename.snap'
-  ])
+  expect(spawnMock).toHaveBeenCalledWith(
+    'review-tools.snap-review',
+    ['--json', 'filename.snap'],
+    {}
+  )
 })
 
 test('SnapReviewer.review reviews the snap for classic', async () => {
@@ -89,9 +110,29 @@ test('SnapReviewer.review reviews the snap for classic', async () => {
   const ensureReviewTools = jest
     .spyOn(tools, 'ensureReviewTools')
     .mockImplementation(async (): Promise<void> => {})
-  const execMock = jest.spyOn(exec, 'exec').mockImplementation(
-    async (program: string, args?: string[]): Promise<number> => {
-      return 0
+  const spawnMock = jest.spyOn(spawn, 'spawn').mockImplementation(
+    (
+      program: string,
+      args: string | string[],
+      options: spawn.IPtyForkOptions | spawn.IWindowsPtyForkOptions
+    ): spawn.IPty => {
+      return {
+        onData: (listener): any => {
+          listener('{}')
+        },
+        onExit: (listener): any => {
+          listener({exitCode: 0})
+        },
+        pid: 0,
+        cols: 0,
+        rows: 0,
+        process: '',
+        handleFlowControl: false,
+        on: () => {},
+        resize: () => {},
+        write: () => {},
+        kill: () => {}
+      }
     }
   )
 
@@ -100,10 +141,11 @@ test('SnapReviewer.review reviews the snap for classic', async () => {
 
   expect(ensureSnapd).toHaveBeenCalled()
   expect(ensureReviewTools).toHaveBeenCalled()
-  expect(execMock).toHaveBeenCalledWith('review-tools.snap-review', [
-    '--allow-classic',
-    'filename.snap'
-  ])
+  expect(spawnMock).toHaveBeenCalledWith(
+    'review-tools.snap-review',
+    ['--json', '--allow-classic', 'filename.snap'],
+    {}
+  )
 })
 
 test('SnapReviewer.review reviews the snap with plugs declaration', async () => {
@@ -115,9 +157,29 @@ test('SnapReviewer.review reviews the snap with plugs declaration', async () => 
   const ensureReviewTools = jest
     .spyOn(tools, 'ensureReviewTools')
     .mockImplementation(async (): Promise<void> => {})
-  const execMock = jest.spyOn(exec, 'exec').mockImplementation(
-    async (program: string, args?: string[]): Promise<number> => {
-      return 0
+  const spawnMock = jest.spyOn(spawn, 'spawn').mockImplementation(
+    (
+      program: string,
+      args: string | string[],
+      options: spawn.IPtyForkOptions | spawn.IWindowsPtyForkOptions
+    ): spawn.IPty => {
+      return {
+        onData: (listener): any => {
+          listener('{}')
+        },
+        onExit: (listener): any => {
+          listener({exitCode: 0})
+        },
+        pid: 0,
+        cols: 0,
+        rows: 0,
+        process: '',
+        handleFlowControl: false,
+        on: () => {},
+        resize: () => {},
+        write: () => {},
+        kill: () => {}
+      }
     }
   )
 
@@ -131,11 +193,11 @@ test('SnapReviewer.review reviews the snap with plugs declaration', async () => 
 
   expect(ensureSnapd).toHaveBeenCalled()
   expect(ensureReviewTools).toHaveBeenCalled()
-  expect(execMock).toHaveBeenCalledWith('review-tools.snap-review', [
-    '--plugs',
-    'plugs.json',
-    'filename.snap'
-  ])
+  expect(spawnMock).toHaveBeenCalledWith(
+    'review-tools.snap-review',
+    ['--json', '--plugs', 'plugs.json', 'filename.snap'],
+    {}
+  )
 })
 
 test('SnapReviewer.review reviews the snap with slots declaration', async () => {
@@ -147,9 +209,29 @@ test('SnapReviewer.review reviews the snap with slots declaration', async () => 
   const ensureReviewTools = jest
     .spyOn(tools, 'ensureReviewTools')
     .mockImplementation(async (): Promise<void> => {})
-  const execMock = jest.spyOn(exec, 'exec').mockImplementation(
-    async (program: string, args?: string[]): Promise<number> => {
-      return 0
+  const spawnMock = jest.spyOn(spawn, 'spawn').mockImplementation(
+    (
+      program: string,
+      args: string | string[],
+      options: spawn.IPtyForkOptions | spawn.IWindowsPtyForkOptions
+    ): spawn.IPty => {
+      return {
+        onData: (listener): any => {
+          listener('{}')
+        },
+        onExit: (listener): any => {
+          listener({exitCode: 0})
+        },
+        pid: 0,
+        cols: 0,
+        rows: 0,
+        process: '',
+        handleFlowControl: false,
+        on: () => {},
+        resize: () => {},
+        write: () => {},
+        kill: () => {}
+      }
     }
   )
 
@@ -163,11 +245,11 @@ test('SnapReviewer.review reviews the snap with slots declaration', async () => 
 
   expect(ensureSnapd).toHaveBeenCalled()
   expect(ensureReviewTools).toHaveBeenCalled()
-  expect(execMock).toHaveBeenCalledWith('review-tools.snap-review', [
-    '--slots',
-    'slots.json',
-    'filename.snap'
-  ])
+  expect(spawnMock).toHaveBeenCalledWith(
+    'review-tools.snap-review',
+    ['--json', '--slots', 'slots.json', 'filename.snap'],
+    {}
+  )
 })
 
 test('SnapReviewer.review reviews the snap with plugs & slots declaration', async () => {
@@ -179,9 +261,29 @@ test('SnapReviewer.review reviews the snap with plugs & slots declaration', asyn
   const ensureReviewTools = jest
     .spyOn(tools, 'ensureReviewTools')
     .mockImplementation(async (): Promise<void> => {})
-  const execMock = jest.spyOn(exec, 'exec').mockImplementation(
-    async (program: string, args?: string[]): Promise<number> => {
-      return 0
+  const spawnMock = jest.spyOn(spawn, 'spawn').mockImplementation(
+    (
+      program: string,
+      args: string | string[],
+      options: spawn.IPtyForkOptions | spawn.IWindowsPtyForkOptions
+    ): spawn.IPty => {
+      return {
+        onData: (listener): any => {
+          listener('{}')
+        },
+        onExit: (listener): any => {
+          listener({exitCode: 0})
+        },
+        pid: 0,
+        cols: 0,
+        rows: 0,
+        process: '',
+        handleFlowControl: false,
+        on: () => {},
+        resize: () => {},
+        write: () => {},
+        kill: () => {}
+      }
     }
   )
 
@@ -195,11 +297,16 @@ test('SnapReviewer.review reviews the snap with plugs & slots declaration', asyn
 
   expect(ensureSnapd).toHaveBeenCalled()
   expect(ensureReviewTools).toHaveBeenCalled()
-  expect(execMock).toHaveBeenCalledWith('review-tools.snap-review', [
-    '--plugs',
-    'plugs.json',
-    '--slots',
-    'slots.json',
-    'filename.snap'
-  ])
+  expect(spawnMock).toHaveBeenCalledWith(
+    'review-tools.snap-review',
+    [
+      '--json',
+      '--plugs',
+      'plugs.json',
+      '--slots',
+      'slots.json',
+      'filename.snap'
+    ],
+    {}
+  )
 })
