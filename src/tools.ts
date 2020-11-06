@@ -6,6 +6,10 @@ import * as exec from '@actions/exec'
 //   https://github.com/nodejs/node/issues/21014
 import fs = require('fs') // eslint-disable-line @typescript-eslint/no-require-imports
 
+const apparmorRulesEnabled = '/etc/apparmor.d/usr.lib.snapd.snap-confine.real'
+const apparmorRulesDisabled =
+  '/etc/apparmor.d/disable/usr.lib.snapd.snap-confine.real'
+
 async function haveExecutable(path: string): Promise<boolean> {
   try {
     await fs.promises.access(path, fs.constants.X_OK)
@@ -13,6 +17,26 @@ async function haveExecutable(path: string): Promise<boolean> {
     return false
   }
   return true
+}
+
+async function haveFile(filePath: string): Promise<boolean> {
+  try {
+    await fs.promises.access(filePath, fs.constants.R_OK)
+  } catch (err) {
+    return false
+  }
+  return true
+}
+
+export async function ensureAppArmor(): Promise<void> {
+  if (
+    (await exec.exec('sudo', ['aa-enabled'])) === 0 &&
+    !(await haveFile(apparmorRulesEnabled)) &&
+    (await haveFile(apparmorRulesDisabled))
+  ) {
+    await exec.exec('sudo', ['mv', apparmorRulesDisabled, '/etc/apparmor.d/'])
+    await exec.exec('sudo', ['apparmor_parser', '-a', apparmorRulesEnabled])
+  }
 }
 
 export async function ensureSnapd(): Promise<void> {

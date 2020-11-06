@@ -67,6 +67,7 @@ export class SnapReviewer {
   }
 
   async review(): Promise<void> {
+    await tools.ensureAppArmor()
     await tools.ensureSnapd()
     await tools.ensureReviewTools()
     await this.runReviewTools()
