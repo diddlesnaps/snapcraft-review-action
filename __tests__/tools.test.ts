@@ -8,38 +8,6 @@ afterEach(() => {
   jest.restoreAllMocks()
 })
 
-test('ensureAppArmor re-enables snap-confine rules', async () => {
-  expect.assertions(4)
-
-  const accessMock = jest.spyOn(fs.promises, 'access').mockImplementation(
-    async (filename: fs.PathLike, mode?: number | undefined): Promise<void> => {
-      if (filename === '/etc/apparmor.d/usr.lib.snapd.snap-confine.real') {
-        throw new Error('Not Found')
-      }
-    }
-  )
-  const execMock = jest.spyOn(exec, 'exec').mockImplementation(
-    async (program: string, args?: string[]): Promise<number> => {
-      return 0
-    }
-  )
-
-  await tools.ensureAppArmor()
-
-  expect(accessMock).toHaveBeenCalledTimes(2)
-  expect(execMock).toHaveBeenNthCalledWith(1, 'sudo', ['aa-enabled'])
-  expect(execMock).toHaveBeenNthCalledWith(2, 'sudo', [
-    'mv',
-    '/etc/apparmor.d/disable/usr.lib.snapd.snap-confine.real',
-    '/etc/apparmor.d/'
-  ])
-  expect(execMock).toHaveBeenNthCalledWith(3, 'sudo', [
-    'apparmor_parser',
-    '-a',
-    '/etc/apparmor.d/usr.lib.snapd.snap-confine.real'
-  ])
-})
-
 test('ensureSnapd installs snapd if needed', async () => {
   expect.assertions(4)
 
