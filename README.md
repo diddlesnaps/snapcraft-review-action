@@ -14,7 +14,7 @@ jobs:
     - uses: actions/checkout@v2
     - uses: snapcore/action-build@v1
       id: build
-    - uses: diddlesnaps/snapcraft-review-tools-action@v1
+    - uses: diddlesnaps/snapcraft-review-action@v1
       with:
         snap: ${{ steps.build.outputs.snap }}
 ```
