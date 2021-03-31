@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: jhenstridge/snapcraft-build-action@v1
+    - uses: snapcore/action-build@v1
       id: build
     - uses: diddlesnaps/snapcraft-review-tools-action@v1
       with:
@@ -29,7 +29,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: jhenstridge/snapcraft-build-action@v1
+    - uses: snapcore/action-build@v1
       id: build
     - uses: diddlesnaps/snapcraft-review-tools-action@v1
       with:
@@ -43,5 +43,5 @@ jobs:
 
 The Snapcraft community has created other actions that may be useful for Snap Packagers:
 
-* [Snapcraft Build Action](https://github.com/jhenstridge/snapcraft-build-action)
-* [Snapcraft Publish Action](https://github.com/jhenstridge/snapcraft-publish-action)
+* [Snapcraft Build Action](https://github.com/snapcore/action-build)
+* [Snapcraft Publish Action](https://github.com/snapcore/action-publish)
