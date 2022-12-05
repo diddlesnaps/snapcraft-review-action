@@ -64,11 +64,13 @@ test('SnapReviewer.review reviews the snap', async () => {
   const ensureReviewTools = jest
     .spyOn(tools, 'ensureReviewTools')
     .mockImplementation(async (): Promise<void> => {})
-  const execMock = jest.spyOn(exec, 'exec').mockImplementation(
-    async (program: string, args?: string[]): Promise<number> => {
-      return 0
-    }
-  )
+  const execMock = jest
+    .spyOn(exec, 'exec')
+    .mockImplementation(
+      async (program: string, args?: string[]): Promise<number> => {
+        return 0
+      }
+    )
 
   const reviewer = new review.SnapReviewer('filename.snap', '', '', false)
   await reviewer.review()
@@ -89,11 +91,13 @@ test('SnapReviewer.review reviews the snap for classic', async () => {
   const ensureReviewTools = jest
     .spyOn(tools, 'ensureReviewTools')
     .mockImplementation(async (): Promise<void> => {})
-  const execMock = jest.spyOn(exec, 'exec').mockImplementation(
-    async (program: string, args?: string[]): Promise<number> => {
-      return 0
-    }
-  )
+  const execMock = jest
+    .spyOn(exec, 'exec')
+    .mockImplementation(
+      async (program: string, args?: string[]): Promise<number> => {
+        return 0
+      }
+    )
 
   const reviewer = new review.SnapReviewer('filename.snap', '', '', true)
   await reviewer.review()
@@ -115,11 +119,13 @@ test('SnapReviewer.review reviews the snap with plugs declaration', async () => 
   const ensureReviewTools = jest
     .spyOn(tools, 'ensureReviewTools')
     .mockImplementation(async (): Promise<void> => {})
-  const execMock = jest.spyOn(exec, 'exec').mockImplementation(
-    async (program: string, args?: string[]): Promise<number> => {
-      return 0
-    }
-  )
+  const execMock = jest
+    .spyOn(exec, 'exec')
+    .mockImplementation(
+      async (program: string, args?: string[]): Promise<number> => {
+        return 0
+      }
+    )
 
   const reviewer = new review.SnapReviewer(
     'filename.snap',
@@ -147,11 +153,13 @@ test('SnapReviewer.review reviews the snap with slots declaration', async () => 
   const ensureReviewTools = jest
     .spyOn(tools, 'ensureReviewTools')
     .mockImplementation(async (): Promise<void> => {})
-  const execMock = jest.spyOn(exec, 'exec').mockImplementation(
-    async (program: string, args?: string[]): Promise<number> => {
-      return 0
-    }
-  )
+  const execMock = jest
+    .spyOn(exec, 'exec')
+    .mockImplementation(
+      async (program: string, args?: string[]): Promise<number> => {
+        return 0
+      }
+    )
 
   const reviewer = new review.SnapReviewer(
     'filename.snap',
@@ -179,11 +187,13 @@ test('SnapReviewer.review reviews the snap with plugs & slots declaration', asyn
   const ensureReviewTools = jest
     .spyOn(tools, 'ensureReviewTools')
     .mockImplementation(async (): Promise<void> => {})
-  const execMock = jest.spyOn(exec, 'exec').mockImplementation(
-    async (program: string, args?: string[]): Promise<number> => {
-      return 0
-    }
-  )
+  const execMock = jest
+    .spyOn(exec, 'exec')
+    .mockImplementation(
+      async (program: string, args?: string[]): Promise<number> => {
+        return 0
+      }
+    )
 
   const reviewer = new review.SnapReviewer(
     'filename.snap',

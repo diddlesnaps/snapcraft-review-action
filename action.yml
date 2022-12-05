@@ -1,6 +1,6 @@
 name: 'Snapcraft Review Tools'
 description: 'Review your built Snap package using the same tools as the Snap Store'
-author: 'Daniel Llewellyn'
+author: 'Dani Llewellyn'
 inputs:
   snap:
     description: 'The snap file to upload to the store'
@@ -12,5 +12,5 @@ inputs:
   isClassic:
     description: 'Set this to true if you are reviewing a classic snap'
 runs:
-  using: 'node12'
+  using: 'node16'
   main: 'dist/index.js'

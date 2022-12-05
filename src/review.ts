@@ -28,7 +28,7 @@ export class SnapReviewer {
   async validate(): Promise<void> {
     try {
       await fs.promises.access(this.snapFile, fs.constants.R_OK)
-    } catch (error) {
+    } catch {
       throw new Error(`cannot read snap file "${this.snapFile}"`)
     }
     try {
