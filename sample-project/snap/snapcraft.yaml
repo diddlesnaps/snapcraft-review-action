@@ -1,4 +1,4 @@
-name: test-diddledan-review-action
+name: test-diddledani-review-action
 base: core18
 version: '0.1'
 summary: A snap used to test the Github review action
@@ -9,7 +9,7 @@ grade: stable
 confinement: strict
 
 apps:
-  test-diddledan-review-action:
+  test-diddledani-review-action:
     command: hello.sh
 
 parts:
