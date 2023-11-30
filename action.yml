@@ -12,5 +12,5 @@ inputs:
   isClassic:
     description: 'Set this to true if you are reviewing a classic snap'
 runs:
-  using: 'node12'
+  using: 'node20'
   main: 'dist/index.js'
